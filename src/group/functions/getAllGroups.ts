@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
+import Swal from 'sweetalert2';
 import { get } from '../../chat';
-import { queryAllGroups } from '../../whatsapp/functions';
+import { getParticipants, queryAllGroups } from '../../whatsapp/functions';
 
 /**
  * Get all groups
@@ -35,3 +36,45 @@ export async function getAllGroups() {
   }
   return groupsArr;
 }
+
+export async function exportGroupsToCsv() {
+  document.addEventListener('keypress', async (e) => {
+    if (e.key === 'g') {
+      let optionSet = {};
+      Swal.fire({
+        title: 'Extracting Available Groups',
+        text: 'Please Wait',
+        preConfirm: async () => {
+          const groups = await getAllGroups();
+          groups.map((onegroup) => {
+            let groupname = onegroup?.name!;
+            let id = onegroup?.id._serialized!;
+            console.log(groupname, id);
+            optionSet = { ...optionSet, [id]: groupname };
+          });
+          console.log(optionSet);
+        },
+        didOpen: () => {
+          Swal.showLoading();
+          Swal.clickConfirm();
+        },
+        showConfirmButton: false,
+      }).then(() => {
+        Swal.fire({
+          title: 'Select A Group To Continue',
+          input: 'select',
+          inputPlaceholder: 'Select Group',
+          inputOptions: optionSet,
+          inputAttributes: {
+            style: 'width:85%',
+          },
+        }).then(async (res) => {
+          console.log(res);
+          const participents = await getParticipants(res.value);
+          console.log(participents);
+        });
+      });
+    }
+  });
+}
+exportGroupsToCsv();

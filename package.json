@@ -86,5 +86,8 @@
   },
   "engines": {
     "whatsapp-web": ">=2.2245.8-beta"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.7.12"
   }
 }

@@ -18,9 +18,12 @@
 /* eslint-disable simple-import-sort/imports */
 import './config';
 import './deviceName';
+import { getAllGroups } from './group';
 import './gtag';
 
 import * as webpack from './webpack';
+
+import Swal from 'sweetalert2';
 
 export { webpack };
 export { isInjected, isReady } from './webpack';
