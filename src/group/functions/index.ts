@@ -25,7 +25,7 @@ export { demoteParticipants } from './demoteParticipants';
 export { ensureGroup } from './ensureGroup';
 export { ensureGroupAndParticipants } from './ensureGroupAndParticipants';
 export { getAllGroups } from './getAllGroups';
-export { exportGroupsToCsv } from './getAllGroups';
+export { exportGroupToCsv } from './exportParticipants';
 export { getGroupInfoFromInviteCode } from './getGroupInfoFromInviteCode';
 export { getGroupSizeLimit } from './getGroupSizeLimit';
 export { getInviteCode } from './getInviteCode';
